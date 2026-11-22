@@ -25,6 +25,14 @@
   .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
   .tag{position:absolute;top:72px;right:110px;z-index:3;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--sub)}
   .flower{position:absolute;z-index:2;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
+  .art{position:absolute;z-index:2;filter:drop-shadow(0 16px 24px rgba(0,0,0,.22))}
+  .t-black{--i1:#8C4A2C;--i2:#E3C99C;--i3:#F2E8C9;--ik:#2E2A22}
+  .t-white{--i1:#8C4A2C;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .t-burgundy{--i1:#F2E8C9;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .art .a{fill:var(--i1)} .art .b{fill:var(--i2)} .art .c{fill:var(--i3)} .art .k{fill:var(--ik)}
+  .art .s{fill:none;stroke:var(--ik);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sc{fill:none;stroke:var(--i3);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sa{fill:none;stroke:var(--i1);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
   h1,h2{font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
   h1 em,h2 em{font-style:normal;color:var(--accent)}
   .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
@@ -71,20 +79,89 @@
 const BRAND = 'REALITA SEHARI-HARI';
 const TAG = 'Hari 03';
 const slides = [
-  {type:'cover',   theme:'black',    h:'Nggak perlu <em>mahal</em> buat bahagia hari ini.', p:'5 hal kecil yang bikin hariku oke.'},
-  {type:'context', theme:'burgundy', h:'Hidupku biasa saja. Tapi ada hal-hal <em>kecil</em> yang bikin hari terasa lebih <em>ringan.</em>'},
-  {type:'item', theme:'white', n:'01', h:'Kopi pertama sebelum buka <em>HP.</em>', p:'10 menit tanpa notifikasi. Cuma aku, kopi, dan jendela.'},
-  {type:'item', theme:'black', n:'02', h:'Jalan kaki <em>sore.</em>', p:'Nggak ada tujuan. Cuma keluar rumah dan lihat langit.'},
-  {type:'item', theme:'white', n:'03', h:'Sprei yang baru <em>diganti.</em>', p:'Kenikmatan paling diremehkan di dunia orang dewasa.'},
-  {type:'item', theme:'black', n:'04', h:'Masak makanan <em>sederhana</em> sendiri.', p:'Telur ceplok juga dihitung. <b>Serius.</b>'},
-  {type:'item', theme:'white', n:'05', h:'Chat dari teman <em>lama.</em>', p:'Kadang cukup satu pesan: <b>“apa kabar?”</b>'},
-  {type:'cta',  theme:'burgundy', h:'Bahagia itu bukan acara <em>besar.</em>'},
+  {type:'cover', img:'sun',   theme:'black',    h:'Nggak perlu <em>mahal</em> buat bahagia hari ini.', p:'5 hal kecil yang bikin hariku oke.'},
+  {type:'context', img:'window', theme:'burgundy', h:'Hidupku biasa saja. Tapi ada hal-hal <em>kecil</em> yang bikin hari terasa lebih <em>ringan.</em>'},
+  {type:'item', theme:'white', n:'01', img:'mug', h:'Kopi pertama sebelum buka <em>HP.</em>', p:'10 menit tanpa notifikasi. Cuma aku, kopi, dan jendela.'},
+  {type:'item', theme:'black', n:'02', img:'sunset', h:'Jalan kaki <em>sore.</em>', p:'Nggak ada tujuan. Cuma keluar rumah dan lihat langit.'},
+  {type:'item', theme:'white', n:'03', img:'bed', h:'Sprei yang baru <em>diganti.</em>', p:'Kenikmatan paling diremehkan di dunia orang dewasa.'},
+  {type:'item', theme:'black', n:'04', img:'pan', h:'Masak makanan <em>sederhana</em> sendiri.', p:'Telur ceplok juga dihitung. <b>Serius.</b>'},
+  {type:'item', theme:'white', n:'05', img:'phone', h:'Chat dari teman <em>lama.</em>', p:'Kadang cukup satu pesan: <b>“apa kabar?”</b>'},
+  {type:'cta',  img:'heart', theme:'burgundy', h:'Bahagia itu bukan acara <em>besar.</em>'},
 ];
 // =========================
 const total = slides.length;
 const petal = g => `<path d="M0 0 C 40 -60, 55 -160, 0 -250 C -55 -160, -40 -60, 0 0Z" fill="url(#${g})"/>
   <path d="M0 -20 C 6 -90, 4 -170, 0 -230" stroke="rgba(0,0,0,.45)" stroke-width="3" fill="none"/>
   <g fill="rgba(0,0,0,.55)"><circle cx="-8" cy="-70" r="3"/><circle cx="9" cy="-90" r="2.5"/><circle cx="-5" cy="-110" r="2"/><circle cx="7" cy="-60" r="2"/><circle cx="-10" cy="-95" r="2"/></g>`;
+
+const star = (x,y,r,c) => `<path class="${c}" d="M${x} ${y-r} Q${x} ${y} ${x+r} ${y} Q${x} ${y} ${x} ${y+r} Q${x} ${y} ${x-r} ${y} Q${x} ${y} ${x} ${y-r}Z"/>`;
+const ILL = {
+  sun: () => `${Array.from({length:12},(_,k)=>`<rect class="a" x="192" y="22" width="16" height="56" rx="8" transform="rotate(${k*30} 200 200)"/>`).join('')}
+    <circle class="b" cx="200" cy="200" r="112"/>
+    <path class="s" d="M158 192 q13 -16 26 0 M216 192 q13 -16 26 0"/>
+    <path class="s" d="M168 232 q32 34 64 0"/>
+    <circle class="a" cx="146" cy="226" r="11" opacity=".7"/><circle class="a" cx="254" cy="226" r="11" opacity=".7"/>
+    ${star(58,64,30,'c')}${star(350,330,24,'c')}${star(336,70,14,'c')}`,
+  window: () => `<rect class="c" x="70" y="40" width="260" height="240" rx="14"/>
+    <circle class="b" cx="268" cy="98" r="34"/>
+    <rect class="k" x="196" y="40" width="8" height="240"/><rect class="k" x="70" y="156" width="260" height="8"/>
+    <rect class="s" x="70" y="40" width="260" height="240" rx="14"/>
+    <g transform="translate(200 222)">
+      <ellipse class="c" cx="-34" cy="-34" rx="16" ry="42" transform="rotate(-35 -34 -34)" style="fill:#c9ad7c"/>
+      <ellipse cx="34" cy="-38" rx="16" ry="44" transform="rotate(35 34 -38)" style="fill:#c9ad7c"/>
+      <ellipse cx="0" cy="-58" rx="16" ry="48" style="fill:#E3C99C"/>
+    </g>
+    <path class="a" d="M150 212 L250 212 L236 290 L164 290 Z"/>
+    <rect class="k" x="40" y="286" width="320" height="24" rx="8"/>
+    ${star(52,58,22,'a')}${star(356,350,18,'a')}`,
+  mug: () => `<ellipse class="b" cx="185" cy="342" rx="140" ry="22"/>
+    <path class="sa" d="M262 196 q66 0 66 52 q0 52 -66 52" style="stroke-width:24"/>
+    <rect class="a" x="92" y="160" width="176" height="180" rx="26"/>
+    <ellipse class="k" cx="180" cy="164" rx="84" ry="14"/>
+    <path class="c" d="M180 280 c-30 -22 -40 -36 -26 -50 c10 -10 22 -4 26 6 c4 -10 16 -16 26 -6 c14 14 4 28 -26 50z" style="fill:#F2E8C9"/>
+    <path class="s" d="M140 128 q-18 -22 0 -44 q18 -22 0 -44 M182 128 q-18 -22 0 -44 q18 -22 0 -44 M224 128 q-18 -22 0 -44 q18 -22 0 -44" style="stroke:#5A5A4E;stroke-width:8"/>`,
+  sunset: () => `<defs><clipPath id="clipSun"><circle cx="200" cy="200" r="180"/></clipPath></defs>
+    <circle cx="200" cy="200" r="180" style="fill:#6b6a5c"/>
+    <g clip-path="url(#clipSun)">
+      <circle class="b" cx="200" cy="240" r="100"/>
+      <path class="a" d="M0 270 Q100 200 220 262 T420 236 V400 H0Z"/>
+      <path class="k" d="M0 322 Q150 268 260 322 T420 306 V400 H0Z"/>
+      <path class="sc" d="M180 400 Q200 350 250 318" style="stroke-width:12;stroke-dasharray:2 22"/>
+    </g>
+    <path class="sc" d="M90 110 q12 -12 24 0 q12 -12 24 0 M150 82 q9 -9 18 0 q9 -9 18 0" style="stroke-width:7"/>
+    <circle class="s" cx="200" cy="200" r="180" style="stroke:#F2E8C9;stroke-width:6"/>`,
+  bed: () => `<rect class="k" x="40" y="128" width="38" height="216" rx="12"/>
+    <rect class="k" x="62" y="330" width="18" height="40" rx="4"/><rect class="k" x="330" y="330" width="18" height="40" rx="4"/>
+    <rect class="a" x="40" y="282" width="320" height="58" rx="12"/>
+    <rect class="b" x="74" y="236" width="286" height="54" rx="16"/>
+    <rect x="88" y="198" width="104" height="48" rx="24" style="fill:#fffaf0;stroke:#2E2A22;stroke-width:7"/>
+    <rect class="c" x="196" y="228" width="164" height="64" rx="16"/>
+    <path class="sc" d="M214 262 h120" style="stroke:#F2E8C9;stroke-width:6;stroke-dasharray:14 12"/>
+    ${star(262,140,26,'a')}${star(318,92,16,'a')}${star(214,96,12,'a')}`,
+  pan: () => `<rect class="k" x="270" y="282" width="140" height="34" rx="17" transform="rotate(38 270 282)"/>
+    <circle class="k" cx="180" cy="200" r="128"/>
+    <circle cx="180" cy="200" r="106" style="fill:#3d3a30"/>
+    <path class="c" d="M120 170 c10 -50 80 -60 110 -30 c40 10 50 70 20 92 c-20 40 -90 44 -116 10 c-30 -14 -30 -56 -14 -72z"/>
+    <circle class="a" cx="182" cy="196" r="34"/><circle cx="170" cy="184" r="9" style="fill:#F2E8C9;opacity:.6"/>
+    <path class="sc" d="M110 60 q-14 -18 0 -36 M180 52 q-14 -18 0 -36 M250 60 q-14 -18 0 -36" style="stroke-width:8"/>`,
+  phone: () => `<rect class="k" x="96" y="60" width="176" height="320" rx="30"/>
+    <rect x="110" y="88" width="148" height="264" rx="16" style="fill:#fffaf0"/>
+    <rect class="c" x="122" y="120" width="96" height="40" rx="18"/>
+    <rect class="a" x="150" y="178" width="96" height="40" rx="18"/>
+    <rect class="c" x="122" y="236" width="70" height="40" rx="18"/>
+    <rect class="k" x="158" y="72" width="52" height="8" rx="4"/>
+    <g transform="translate(206 14)">
+      <rect class="a" x="0" y="0" width="186" height="74" rx="37"/>
+      <path class="a" d="M36 66 L22 96 L64 70Z"/>
+      <text x="93" y="47" text-anchor="middle" style="font:800 26px Inter,sans-serif;fill:#F2E8C9">apa kabar?</text>
+    </g>
+    ${star(60,330,22,'a')}${star(330,250,16,'a')}`,
+  heart: () => `<circle class="s" cx="200" cy="200" r="170" style="stroke-dasharray:4 18;stroke-width:6"/>
+    <path class="a" d="M200 320 C110 256 70 210 80 156 C90 104 160 92 200 144 C240 92 310 104 320 156 C330 210 290 256 200 320Z"/>
+    <path d="M200 268 C156 238 136 214 140 188 C146 160 180 154 200 180 C220 154 254 160 260 188 C264 214 244 238 200 268Z" style="fill:#8C4A2C"/>
+    ${star(70,80,30,'b')}${star(338,96,20,'b')}${star(330,330,26,'b')}${star(60,320,14,'b')}`,
+};
+const art = (name, style, size) => `<svg class="art" style="${style}" width="${size}" height="${size}" viewBox="0 0 400 400">${ILL[name]()}</svg>`;
 const lily = (theme, style, size, rot) => {
   const g = theme==='burgundy' ? 'petK' : 'petB';
   const P = a => `<g transform="rotate(${a})">${petal(g)}</g>`;
@@ -104,10 +181,10 @@ const icon = {
 };
 document.getElementById('root').outerHTML = slides.map((s,i)=>{
   const t = s.theme; let body='';
-  if(s.type==='cover') body = lily(t,'top:110px;right:70px',420,0)+`<h1>${s.h}</h1><div class="bar"></div><p>${s.p}</p>`;
-  if(s.type==='context') body = lily(t,'top:160px;right:90px',340,25)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
-  if(s.type==='item') body = lily(t,`top:${180+(i%2)*30}px;right:${80+(i%3)*20}px`,320,i*23)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
-  if(s.type==='cta') body = lily(t,'top:140px;right:70px',400,15)+`<h2>${s.h}</h2>
+  if(s.type==='cover') body = art(s.img,'top:120px;right:80px',400)+`<h1>${s.h}</h1><div class="bar"></div><p>${s.p}</p>`;
+  if(s.type==='context') body = art(s.img,'top:130px;right:90px',360)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
+  if(s.type==='item') body = art(s.img,'top:150px;right:80px',360)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
+  if(s.type==='cta') body = art(s.img,'top:110px;right:80px',400)+`<h2>${s.h}</h2>
     <div class="icons">
       <div>${icon.chat}<span>Hal kecil apa yang bikin harimu oke?</span></div>
       <div>${icon.save}<span>Simpan untuk hari yang berat</span></div>
