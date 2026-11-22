@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hari 3 Carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Palet warna brand */
+  :root{--olive:#5A5A4E;--rust:#8C4A2C;--cream:#F2E8C9;--khaki:#E3C99C;--dark:#2E2A22}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#444;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
+  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Helvetica Neue','Inter',sans-serif}
+  /* tema per slide */
+  .t-black{background:var(--olive);color:var(--cream);--accent:var(--khaki);--sub:rgba(242,232,201,.82)}
+  .t-burgundy{background:var(--rust);color:var(--cream);--accent:var(--dark);--sub:rgba(242,232,201,.86)}
+  .t-white{background:var(--cream);color:var(--dark);--accent:var(--rust);--sub:rgba(46,42,34,.78)}
+  /* kilau satin halus */
+  .t-black::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.06), transparent 60%),radial-gradient(ellipse at 0% 100%, rgba(0,0,0,.25), transparent 60%)}
+  .t-burgundy::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%, rgba(255,255,255,.12), transparent 55%),radial-gradient(ellipse at 10% 100%, rgba(0,0,0,.35), transparent 60%)}
+  .t-white::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 5%, rgba(140,74,44,.08), transparent 50%)}
+  /* butiran tekstur */
+  .slide::after{content:"";position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .inner{position:relative;z-index:2;height:100%}
+  .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
+  .tag{position:absolute;top:72px;right:110px;z-index:3;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--sub)}
+  .flower{position:absolute;z-index:2;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
+  .art{position:absolute;z-index:2;filter:drop-shadow(0 16px 24px rgba(0,0,0,.22))}
+  .t-black{--i1:#8C4A2C;--i2:#E3C99C;--i3:#F2E8C9;--ik:#2E2A22}
+  .t-white{--i1:#8C4A2C;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .t-burgundy{--i1:#F2E8C9;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .art .a{fill:var(--i1)} .art .b{fill:var(--i2)} .art .c{fill:var(--i3)} .art .k{fill:var(--ik)}
+  .art .s{fill:none;stroke:var(--ik);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sc{fill:none;stroke:var(--i3);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sa{fill:none;stroke:var(--i1);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  h1,h2{font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+  h1 em,h2 em{font-style:normal;color:var(--accent)}
+  .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
+  .t-black h1 em,.t-black h2 em{color:var(--khaki)} /* burgundy lebih terang agar terbaca di hitam */
+  p{font-size:38px;line-height:1.35;font-weight:600;color:var(--sub)}
+  p b{color:inherit;font-weight:700}
+  .t-white p b{color:var(--dark)} .t-black p b,.t-burgundy p b{color:var(--cream)}
+  .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:.06em}
+  .swipe{display:flex;align-items:center;gap:14px;border:2px solid currentColor;border-radius:40px;padding:12px 26px;font-size:22px;letter-spacing:.1em}
+  .cover h1{font-size:92px;position:absolute;left:110px;right:70px;top:560px}
+  .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--khaki)}
+  .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--cream)}
+  .context h2{font-size:70px;position:absolute;left:110px;right:110px;top:540px}
+  .num{position:absolute;left:100px;top:250px;font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:280px;line-height:1;letter-spacing:-.03em;color:var(--accent)}
+  .t-black .num{color:var(--khaki)}
+  .rule{position:absolute;left:110px;top:640px;width:120px;height:4px;background:var(--accent)}
+  .t-black .rule{background:var(--khaki)}
+  .item h2{font-size:70px;position:absolute;left:110px;right:110px;top:690px}
+  .item p{position:absolute;left:110px;right:150px;top:1030px}
+  .cta h2{font-size:88px;position:absolute;left:110px;right:110px;top:560px}
+  .cta .icons{position:absolute;left:110px;right:110px;top:920px;display:flex;flex-direction:column;gap:30px;font-size:34px;font-weight:600}
+  .cta .icons div{display:flex;align-items:center;gap:26px}
+  .cta svg.ic{width:46px;height:46px;stroke:currentColor;stroke-width:2.2;fill:none;flex:none}
+  .squiggle{position:absolute;z-index:2}
+  .t-white .bar{background:var(--rust) !important}
+  .t-white.cover p{color:var(--dark) !important}
+  .t-burgundy .num,.t-burgundy .rule{color:var(--dark)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- bunga burgundy (untuk latar hitam & putih) -->
+    <radialGradient id="petB" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#3a1d0f"/><stop offset=".5" stop-color="#8C4A2C"/><stop offset="1" stop-color="#b8693f"/>
+    </radialGradient>
+    <!-- bunga hitam (untuk latar burgundy) -->
+    <radialGradient id="petK" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#1c1a14"/><stop offset=".6" stop-color="#2E2A22"/><stop offset="1" stop-color="#4a4436"/>
+    </radialGradient>
+    <path id="sq" d="M0 30 C 40 30, 60 30, 80 22 C 95 5, 120 5, 110 25 C 102 38, 140 30, 200 26" stroke="currentColor" stroke-width="3" fill="none"/>
+  </defs>
+</svg>
+<div id="root"></div>
+<script>
+// === EDIT TEKS DI SINI ===
+const BRAND = 'REALITA SEHARI-HARI';
+const TAG = 'Hari 05';
+const slides = [
+  {type:'cover', img:'bag', theme:'white', h:'Isi tasku <em>nggak estetik</em> sama sekali.', p:'Dibongkar tanpa dirapikan dulu.'},
+  {type:'context', img:'magnifier', theme:'black', h:'Di konten orang, isi tas selalu rapi dan <em>serasi.</em> Ini versi yang <em>beneran.</em>'},
+  {type:'item', img:'receipt', theme:'burgundy', n:'01', h:'Struk belanja bulan <em>lalu.</em>', p:'Disimpan buat dicatat. <b>Nggak pernah dicatat.</b>'},
+  {type:'item', img:'cable', theme:'white', n:'02', h:'Charger tanpa <em>kepala.</em>', p:'Kabelnya ada. <b>Adaptornya entah di mana.</b>'},
+  {type:'item', img:'candy', theme:'burgundy', n:'03', h:'Permen yang sudah <em>meleleh.</em>', p:'Masih dimakan? <b>Masih.</b>'},
+  {type:'item', img:'pens', theme:'white', n:'04', h:'Tiga pulpen, semuanya <em>macet.</em>', p:'Tetap dibawa. <b>Buat jaga-jaga.</b>'},
+  {type:'item', img:'mask', theme:'burgundy', n:'05', h:'Masker cadangan sejak <em>2021.</em>', p:'Sudah bukan masker lagi. <b>Sudah jadi jimat.</b>'},
+  {type:'cta', img:'keys', theme:'black', h:'Isi tasmu juga punya <em>cerita.</em>',
+    list:[['chat','Apa barang teraneh di tasmu?'],['save','Simpan, lalu bongkar tasmu sendiri'],['send','Kirim ke teman yang tasnya kayak gudang']]},
+];
+// =========================
+const total = slides.length;
+const petal = g => `<path d="M0 0 C 40 -60, 55 -160, 0 -250 C -55 -160, -40 -60, 0 0Z" fill="url(#${g})"/>
+  <path d="M0 -20 C 6 -90, 4 -170, 0 -230" stroke="rgba(0,0,0,.45)" stroke-width="3" fill="none"/>
+  <g fill="rgba(0,0,0,.55)"><circle cx="-8" cy="-70" r="3"/><circle cx="9" cy="-90" r="2.5"/><circle cx="-5" cy="-110" r="2"/><circle cx="7" cy="-60" r="2"/><circle cx="-10" cy="-95" r="2"/></g>`;
+
+const star = (x,y,r,c) => `<path class="${c}" d="M${x} ${y-r} Q${x} ${y} ${x+r} ${y} Q${x} ${y} ${x} ${y+r} Q${x} ${y} ${x-r} ${y} Q${x} ${y} ${x} ${y-r}Z"/>`;
+const ILL = {
+  bag: () => `<path d="M140 150 V110 a60 60 0 0 1 120 0 V150" style="fill:none;stroke:#2E2A22;stroke-width:14;stroke-linecap:round"/>
+    <rect x="150" y="90" width="64" height="120" rx="8" transform="rotate(-14 182 150)" style="fill:#fffaf0;stroke:#2E2A22;stroke-width:4"/>
+    <rect class="k" x="214" y="80" width="56" height="104" rx="12" transform="rotate(12 242 132)"/>
+    <circle class="b" cx="292" cy="128" r="24"/>
+    <path class="a" d="M70 150 H330 L306 370 H94Z"/>
+    <path d="M70 150 H330" style="stroke:#2E2A22;stroke-width:6"/>
+    <circle class="b" cx="200" cy="260" r="34"/>
+    <path d="M186 256 h10 M206 256 h10 M190 274 q10 -4 20 0" style="stroke:#2E2A22;stroke-width:5;stroke-linecap:round"/>
+    <rect class="b" x="40" y="330" width="44" height="16" rx="8" transform="rotate(-24 62 338)"/>
+    <circle class="c" cx="350" cy="346" r="12"/>
+    ${star(56,70,22,'a')}${star(350,60,14,'a')}`,
+  magnifier: () => `<rect class="a" x="230" y="250" width="54" height="150" rx="22" transform="rotate(-45 257 325)"/>
+    <circle class="k" cx="170" cy="170" r="128"/>
+    <circle class="c" cx="170" cy="170" r="104"/>
+    <path d="M110 120 a74 74 0 0 1 64 -36" style="fill:none;stroke:#fffaf0;stroke-width:12;stroke-linecap:round;opacity:.8"/>
+    <text x="170" y="214" text-anchor="middle" style="font:900 120px Archivo,sans-serif;font-stretch:125%;fill:#8C4A2C">?</text>
+    ${star(352,70,24,'c')}${star(40,350,16,'c')}`,
+  receipt: () => `<g transform="rotate(-6 200 200)">
+      <path class="a" d="M110 30 L290 30 L290 350 l-15 14 l-15 -14 l-15 14 l-15 -14 l-15 14 l-15 -14 l-15 14 l-15 -14 l-15 14 l-15 -14 l-15 14 l-15 -14Z"/>
+      <text x="200" y="76" text-anchor="middle" style="font:900 26px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">STRUK</text>
+      <text x="200" y="102" text-anchor="middle" style="font:600 16px Inter,sans-serif;fill:#5A5A4E">03/10 · 19:42</text>
+      ${[0,1,2,3,4].map(r=>`<rect x="132" y="${128+r*30}" width="${[90,70,100,60,84][r]}" height="9" rx="4" style="fill:#5A5A4E;opacity:.55"/>
+        <rect x="${244}" y="${128+r*30}" width="26" height="9" rx="4" style="fill:#5A5A4E;opacity:.55"/>`).join('')}
+      <path d="M130 286 H270" style="stroke:#2E2A22;stroke-width:3;stroke-dasharray:6 6"/>
+      <text x="132" y="320" style="font:900 22px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">TOTAL</text>
+      <text x="270" y="320" text-anchor="end" style="font:900 22px Archivo,sans-serif;font-stretch:125%;fill:#8C4A2C">???</text>
+    </g>
+    <path d="M330 120 l20 -20 M340 150 h26 M330 180 l20 20" style="stroke:#E3C99C;stroke-width:8;stroke-linecap:round"/>`,
+  cable: () => `<path d="M120 300 C40 300 40 200 110 200 C190 200 190 300 130 300 C60 300 80 120 170 140 C260 160 220 280 290 270" style="fill:none;stroke:#2E2A22;stroke-width:16;stroke-linecap:round"/>
+    <rect class="a" x="282" y="246" width="50" height="46" rx="10" transform="rotate(-10 307 269)"/>
+    <rect class="b" x="326" y="254" width="24" height="26" rx="4" transform="rotate(-10 338 267)"/>
+    <rect x="250" y="60" width="110" height="110" rx="20" style="fill:none;stroke:#8C4A2C;stroke-width:7;stroke-dasharray:14 12"/>
+    <text x="305" y="138" text-anchor="middle" style="font:900 64px Archivo,sans-serif;font-stretch:125%;fill:#8C4A2C">?</text>
+    ${star(60,80,20,'a')}`,
+  candy: () => `<path class="a" d="M110 170 L30 120 L50 200 L30 270 L110 230Z"/>
+    <path class="a" d="M290 170 L370 120 L350 200 L370 270 L290 230Z"/>
+    <path class="b" d="M120 160 Q200 120 280 160 Q300 200 280 240 Q260 250 250 300 q-8 30 -16 0 q-6 -30 -20 -34 Q180 260 168 290 q-8 26 -16 0 Q148 250 120 240 Q100 200 120 160Z"/>
+    <path d="M150 150 L130 240 M200 138 L176 254 M250 146 L226 262" style="stroke:#8C4A2C;stroke-width:12;stroke-linecap:round;opacity:.7"/>
+    <ellipse cx="200" cy="340" rx="90" ry="14" style="fill:#2E2A22;opacity:.25"/>
+    <ellipse class="b" cx="244" cy="336" rx="26" ry="8"/>`,
+  pens: () => `${[[-30,'a',90],[0,'c',200],[24,'k',300]].map(([r,c,x])=>`<g transform="rotate(${r} ${x} 200)">
+      <rect class="${c}" x="${x-16}" y="70" width="32" height="220" rx="12"/>
+      <rect class="b" x="${x-16}" y="70" width="32" height="56" rx="12"/>
+      <path class="k" d="M${x-12} 290 h24 l-12 30z"/>
+    </g>`).join('')}
+    <path d="M40 372 q30 -18 60 0 t60 0 t60 0" style="fill:none;stroke:#8C4A2C;stroke-width:6;stroke-linecap:round;stroke-dasharray:4 14"/>
+    <text x="250" y="384" style="font:900 26px Archivo,sans-serif;font-stretch:125%;fill:#8C4A2C">…macet</text>`,
+  mask: () => `<path d="M80 170 C20 150 20 260 84 250 M320 170 C380 150 380 260 316 250" style="fill:none;stroke:#2E2A22;stroke-width:8;stroke-linecap:round"/>
+    <path class="a" d="M80 140 Q200 110 320 140 L320 270 Q200 320 80 270Z"/>
+    <path d="M84 180 Q200 160 316 180 M84 216 Q200 200 316 216 M84 252 Q200 240 316 252" style="fill:none;stroke:#5A5A4E;stroke-width:6;opacity:.6"/>
+    <g transform="rotate(-10 300 100)"><rect class="b" x="250" y="56" width="120" height="50" rx="10"/>
+      <circle class="k" cx="266" cy="81" r="6"/>
+      <text x="320" y="92" text-anchor="middle" style="font:900 26px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">2021</text></g>
+    ${star(60,80,22,'b')}${star(70,340,14,'b')}`,
+  keys: () => `<circle cx="200" cy="110" r="56" style="fill:none;stroke:#E3C99C;stroke-width:14"/>
+    <g transform="rotate(-24 150 170)"><rect class="a" x="134" y="150" width="32" height="170" rx="10"/><circle class="a" cx="150" cy="150" r="40"/><circle cx="150" cy="146" r="14" style="fill:#5A5A4E"/>
+      <rect class="a" x="166" y="262" width="26" height="14"/><rect class="a" x="166" y="290" width="18" height="14"/></g>
+    <path d="M240 150 L262 196" style="stroke:#E3C99C;stroke-width:8"/>
+    <path class="c" d="M226 218 C214 190 250 172 278 180 C310 176 330 204 322 230 C334 260 306 290 274 286 C242 298 210 276 214 250 C204 240 210 224 226 218Z"/>
+    <circle class="b" cx="270" cy="236" r="34"/>
+    <path d="M254 232 h10 M276 232 h10" style="stroke:#2E2A22;stroke-width:5;stroke-linecap:round"/>
+    <path d="M262 250 q8 -4 16 0" style="fill:none;stroke:#2E2A22;stroke-width:4;stroke-linecap:round"/>
+    ${star(60,300,24,'c')}${star(350,90,16,'c')}`,
+};
+const art = (name, style, size) => `<svg class="art" style="${style}" width="${size}" height="${size}" viewBox="0 0 400 400">${ILL[name]()}</svg>`;
+const lily = (theme, style, size, rot) => {
+  const g = theme==='burgundy' ? 'petK' : 'petB';
+  const P = a => `<g transform="rotate(${a})">${petal(g)}</g>`;
+  return `<svg class="flower" style="${style}" width="${size}" height="${size}" viewBox="-280 -280 560 560"><g transform="rotate(${rot-8})">
+    ${P(0)}${P(72)}${P(144)}${P(216)}${P(288)}<g transform="rotate(36) scale(.8)" opacity=".85">${petal(g)}</g></g>
+    <g stroke="#2E2A22" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
+    <g fill="#2E2A22"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
+    <circle r="14" fill="#2E2A22"/></svg>`;
+};
+const sq = style => `<svg class="squiggle" style="${style}" width="200" height="40" viewBox="0 0 200 40"><use href="#sq"/></svg>`;
+const pad = n => String(n).padStart(2,'0');
+const footer = i => `<div class="footer"><span>${pad(i+1)} / ${pad(total)}</span>${i<total-1?'<span class="swipe">SWIPE →</span>':''}</div>`;
+const icon = {
+  save:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>',
+  chat:'<svg class="ic" viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>',
+  send:'<svg class="ic" viewBox="0 0 24 24"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg>'
+};
+document.getElementById('root').outerHTML = slides.map((s,i)=>{
+  const t = s.theme; let body='';
+  if(s.type==='cover') body = art(s.img,'top:120px;right:80px',400)+`<h1>${s.h}</h1><div class="bar"></div><p>${s.p}</p>`;
+  if(s.type==='context') body = art(s.img,'top:130px;right:90px',360)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
+  if(s.type==='item') body = art(s.img,'top:150px;right:80px',360)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
+  if(s.type==='cta') body = art(s.img,'top:110px;right:80px',400)+`<h2>${s.h}</h2>
+    <div class="icons">${s.list.map(([k,t])=>`<div>${icon[k]}<span>${t}</span></div>`).join('')}</div>`;
+  return `<section class="slide ${s.type} t-${t}"><div class="brand">${BRAND}</div><div class="tag">${TAG}</div><div class="inner">${body}</div>${footer(i)}</section>`;
+}).join('');
+</script>
+</body>
+</html>
