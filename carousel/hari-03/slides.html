@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>Hari 3 Carousel</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Palet warna brand */
   :root{--olive:#5A5A4E;--rust:#8C4A2C;--cream:#F2E8C9;--khaki:#E3C99C;--dark:#2E2A22}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#444;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
-  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Helvetica Neue','Inter',sans-serif}
   /* tema per slide */
   .t-black{background:var(--olive);color:var(--cream);--accent:var(--khaki);--sub:rgba(242,232,201,.82)}
   .t-burgundy{background:var(--rust);color:var(--cream);--accent:var(--dark);--sub:rgba(242,232,201,.86)}
@@ -25,26 +25,26 @@
   .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
   .tag{position:absolute;top:72px;right:110px;z-index:3;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--sub)}
   .flower{position:absolute;z-index:2;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
-  h1,h2{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-.02em;line-height:1.04}
-  h1 em,h2 em{font-style:italic}
+  h1,h2{font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+  h1 em,h2 em{font-style:normal;color:var(--accent)}
   .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
   .t-black h1 em,.t-black h2 em{color:var(--khaki)} /* burgundy lebih terang agar terbaca di hitam */
-  p{font-size:38px;line-height:1.35;font-weight:500;color:var(--sub)}
+  p{font-size:38px;line-height:1.35;font-weight:600;color:var(--sub)}
   p b{color:inherit;font-weight:700}
   .t-white p b{color:var(--dark)} .t-black p b,.t-burgundy p b{color:var(--cream)}
   .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:.06em}
   .swipe{display:flex;align-items:center;gap:14px;border:2px solid currentColor;border-radius:40px;padding:12px 26px;font-size:22px;letter-spacing:.1em}
-  .cover h1{font-size:116px;position:absolute;left:110px;right:110px;top:560px}
+  .cover h1{font-size:92px;position:absolute;left:110px;right:70px;top:540px}
   .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--khaki)}
   .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--cream)}
-  .context h2{font-size:92px;position:absolute;left:110px;right:110px;top:540px}
-  .num{position:absolute;left:110px;top:240px;font-family:'Playfair Display',serif;font-style:italic;font-size:300px;line-height:1;color:var(--accent)}
+  .context h2{font-size:70px;position:absolute;left:110px;right:110px;top:540px}
+  .num{position:absolute;left:100px;top:250px;font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:280px;line-height:1;letter-spacing:-.03em;color:var(--accent)}
   .t-black .num{color:var(--khaki)}
   .rule{position:absolute;left:110px;top:640px;width:120px;height:4px;background:var(--accent)}
   .t-black .rule{background:var(--khaki)}
-  .item h2{font-size:96px;position:absolute;left:110px;right:110px;top:690px}
+  .item h2{font-size:70px;position:absolute;left:110px;right:110px;top:690px}
   .item p{position:absolute;left:110px;right:150px;top:1030px}
-  .cta h2{font-size:108px;position:absolute;left:110px;right:110px;top:560px}
+  .cta h2{font-size:88px;position:absolute;left:110px;right:110px;top:560px}
   .cta .icons{position:absolute;left:110px;right:110px;top:920px;display:flex;flex-direction:column;gap:30px;font-size:34px;font-weight:600}
   .cta .icons div{display:flex;align-items:center;gap:26px}
   .cta svg.ic{width:46px;height:46px;stroke:currentColor;stroke-width:2.2;fill:none;flex:none}
