@@ -3,105 +3,117 @@
 <head>
 <meta charset="utf-8">
 <title>Hari 3 Carousel</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#5a0f1c;--ink-soft:#6b1a26;--bg:#e9e3dc;--bg-2:#d9cfc4}
+  /* Palet warna brand */
+  :root{--black:#000000;--burgundy:#6D001A;--white:#FFFFFF}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#222;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
-  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif}
-  .slide::before{content:"";position:absolute;inset:0;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(120,95,75,.18) 0 2px, transparent 3px) 0 0/38px 42px,
-      radial-gradient(circle at 70% 60%, rgba(90,70,55,.14) 0 3px, transparent 4px) 0 0/57px 49px,
-      repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 2px, transparent 2px 120px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,.22) 0 2px, transparent 2px 120px),
-      linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
-    filter:blur(1.2px)}
-  .slide::after{content:"";position:absolute;inset:0;background:rgba(240,235,229,.32)}
+  body{background:#444;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
+  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+  /* tema per slide */
+  .t-black{background:var(--black);color:var(--white);--accent:var(--burgundy);--sub:rgba(255,255,255,.78)}
+  .t-burgundy{background:var(--burgundy);color:var(--white);--accent:var(--black);--sub:rgba(255,255,255,.82)}
+  .t-white{background:var(--white);color:var(--black);--accent:var(--burgundy);--sub:rgba(0,0,0,.72)}
+  /* kilau satin halus */
+  .t-black::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 85% 10%, rgba(109,0,26,.45), transparent 55%)}
+  .t-burgundy::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%, rgba(255,255,255,.12), transparent 55%),radial-gradient(ellipse at 10% 100%, rgba(0,0,0,.35), transparent 60%)}
+  .t-white::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 5%, rgba(109,0,26,.06), transparent 50%)}
+  /* butiran tekstur */
+  .slide::after{content:"";position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
   .inner{position:relative;z-index:2;height:100%}
-  .brand{position:absolute;top:70px;left:0;right:0;text-align:center;font-weight:700;letter-spacing:.14em;font-size:22px;z-index:3}
-  .flower{position:absolute;z-index:2;filter:drop-shadow(0 12px 18px rgba(60,10,15,.35))}
+  .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
+  .tag{position:absolute;top:72px;right:110px;z-index:3;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--sub)}
+  .flower{position:absolute;z-index:2;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
   h1,h2{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-.02em;line-height:1.04}
   h1 em,h2 em{font-style:italic}
-  p{font-size:38px;line-height:1.35;font-weight:500;color:var(--ink-soft)}
-  p b{color:var(--ink);font-weight:700}
-  .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:600;letter-spacing:.04em}
-  .footer .swipe{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:30px;letter-spacing:0}
-  .cover h1{font-size:122px;position:absolute;left:110px;right:110px;top:600px}
-  .cover p{position:absolute;left:110px;right:200px;top:1020px;font-weight:700;color:var(--ink)}
+  .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
+  .t-black h1 em,.t-black h2 em{color:#b3122f} /* burgundy lebih terang agar terbaca di hitam */
+  p{font-size:38px;line-height:1.35;font-weight:500;color:var(--sub)}
+  p b{color:inherit;font-weight:700}
+  .t-white p b{color:var(--black)} .t-black p b,.t-burgundy p b{color:var(--white)}
+  .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:.06em}
+  .swipe{display:flex;align-items:center;gap:14px;border:2px solid currentColor;border-radius:40px;padding:12px 26px;font-size:22px;letter-spacing:.1em}
+  .cover h1{font-size:116px;position:absolute;left:110px;right:110px;top:560px}
+  .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--burgundy)}
+  .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--white)}
   .context h2{font-size:92px;position:absolute;left:110px;right:110px;top:540px}
-  .num{position:absolute;left:110px;top:250px;font-family:'Playfair Display',serif;font-style:italic;font-size:300px;line-height:1}
-  .rule{position:absolute;left:110px;top:640px;width:120px;height:3px;background:var(--ink)}
+  .num{position:absolute;left:110px;top:240px;font-family:'Playfair Display',serif;font-style:italic;font-size:300px;line-height:1;color:var(--accent)}
+  .t-black .num{color:#b3122f}
+  .rule{position:absolute;left:110px;top:640px;width:120px;height:4px;background:var(--accent)}
+  .t-black .rule{background:#b3122f}
   .item h2{font-size:96px;position:absolute;left:110px;right:110px;top:690px}
   .item p{position:absolute;left:110px;right:150px;top:1030px}
   .cta h2{font-size:108px;position:absolute;left:110px;right:110px;top:560px}
   .cta .icons{position:absolute;left:110px;right:110px;top:920px;display:flex;flex-direction:column;gap:30px;font-size:34px;font-weight:600}
   .cta .icons div{display:flex;align-items:center;gap:26px}
-  .cta svg.ic{width:46px;height:46px;stroke:var(--ink);stroke-width:2.2;fill:none;flex:none}
+  .cta svg.ic{width:46px;height:46px;stroke:currentColor;stroke-width:2.2;fill:none;flex:none}
   .squiggle{position:absolute;z-index:2}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute">
   <defs>
-    <radialGradient id="pet" cx="50%" cy="85%" r="90%">
-      <stop offset="0" stop-color="#2a0308"/><stop offset=".45" stop-color="#6e0c18"/><stop offset="1" stop-color="#a0192a"/>
+    <!-- bunga burgundy (untuk latar hitam & putih) -->
+    <radialGradient id="petB" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#1a0006"/><stop offset=".5" stop-color="#6D001A"/><stop offset="1" stop-color="#a3132f"/>
     </radialGradient>
-    <g id="petal">
-      <path d="M0 0 C 40 -60, 55 -160, 0 -250 C -55 -160, -40 -60, 0 0Z" fill="url(#pet)"/>
-      <path d="M0 -20 C 6 -90, 4 -170, 0 -230" stroke="#3a050c" stroke-width="3" fill="none" opacity=".6"/>
-      <g fill="#2a0308" opacity=".7"><circle cx="-8" cy="-70" r="3"/><circle cx="9" cy="-90" r="2.5"/><circle cx="-5" cy="-110" r="2"/><circle cx="7" cy="-60" r="2"/><circle cx="-10" cy="-95" r="2"/></g>
-    </g>
-    <g id="lily">
-      <g transform="rotate(-8)">
-        <use href="#petal"/><use href="#petal" transform="rotate(72)"/><use href="#petal" transform="rotate(144)"/>
-        <use href="#petal" transform="rotate(216)"/><use href="#petal" transform="rotate(288)"/>
-        <use href="#petal" transform="rotate(36) scale(.8)" opacity=".85"/>
-      </g>
-      <g stroke="#3a050c" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
-      <g fill="#4a0a10"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
-      <circle r="14" fill="#2a0308"/>
-    </g>
-    <path id="sq" d="M0 30 C 40 30, 60 30, 80 22 C 95 5, 120 5, 110 25 C 102 38, 140 30, 200 26" stroke="#5a0f1c" stroke-width="3" fill="none"/>
+    <!-- bunga hitam (untuk latar burgundy) -->
+    <radialGradient id="petK" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#000"/><stop offset=".6" stop-color="#140004"/><stop offset="1" stop-color="#2e0009"/>
+    </radialGradient>
+    <path id="sq" d="M0 30 C 40 30, 60 30, 80 22 C 95 5, 120 5, 110 25 C 102 38, 140 30, 200 26" stroke="currentColor" stroke-width="3" fill="none"/>
   </defs>
 </svg>
 <div id="root"></div>
 <script>
 // === EDIT TEKS DI SINI ===
 const BRAND = 'REALITA SEHARI-HARI';
+const TAG = 'Hari 03';
 const slides = [
-  {type:'cover', h:'Nggak perlu <em>mahal</em> buat bahagia hari ini.', p:'5 hal kecil yang bikin hariku oke.'},
-  {type:'context', h:'Hidupku biasa saja. Tapi ada hal-hal <em>kecil</em> yang bikin hari terasa lebih <em>ringan.</em>'},
-  {type:'item', n:'01', h:'Kopi pertama sebelum buka <em>HP.</em>', p:'10 menit tanpa notifikasi. Cuma aku, kopi, dan jendela.'},
-  {type:'item', n:'02', h:'Jalan kaki <em>sore.</em>', p:'Nggak ada tujuan. Cuma keluar rumah dan lihat langit.'},
-  {type:'item', n:'03', h:'Sprei yang baru <em>diganti.</em>', p:'Kenikmatan paling diremehkan di dunia orang dewasa.'},
-  {type:'item', n:'04', h:'Masak makanan <em>sederhana</em> sendiri.', p:'Telur ceplok juga dihitung. <b>Serius.</b>'},
-  {type:'item', n:'05', h:'Chat dari teman <em>lama.</em>', p:'Kadang cukup satu pesan: <b>“apa kabar?”</b>'},
-  {type:'cta', h:'Bahagia itu bukan acara <em>besar.</em>'},
+  {type:'cover',   theme:'black',    h:'Nggak perlu <em>mahal</em> buat bahagia hari ini.', p:'5 hal kecil yang bikin hariku oke.'},
+  {type:'context', theme:'burgundy', h:'Hidupku biasa saja. Tapi ada hal-hal <em>kecil</em> yang bikin hari terasa lebih <em>ringan.</em>'},
+  {type:'item', theme:'white', n:'01', h:'Kopi pertama sebelum buka <em>HP.</em>', p:'10 menit tanpa notifikasi. Cuma aku, kopi, dan jendela.'},
+  {type:'item', theme:'black', n:'02', h:'Jalan kaki <em>sore.</em>', p:'Nggak ada tujuan. Cuma keluar rumah dan lihat langit.'},
+  {type:'item', theme:'white', n:'03', h:'Sprei yang baru <em>diganti.</em>', p:'Kenikmatan paling diremehkan di dunia orang dewasa.'},
+  {type:'item', theme:'black', n:'04', h:'Masak makanan <em>sederhana</em> sendiri.', p:'Telur ceplok juga dihitung. <b>Serius.</b>'},
+  {type:'item', theme:'white', n:'05', h:'Chat dari teman <em>lama.</em>', p:'Kadang cukup satu pesan: <b>“apa kabar?”</b>'},
+  {type:'cta',  theme:'burgundy', h:'Bahagia itu bukan acara <em>besar.</em>'},
 ];
 // =========================
 const total = slides.length;
-const lily = (style, size, rot) => `<svg class="flower" style="${style}" width="${size}" height="${size}" viewBox="-280 -280 560 560"><g transform="rotate(${rot})"><use href="#lily"/></g></svg>`;
+const petal = g => `<path d="M0 0 C 40 -60, 55 -160, 0 -250 C -55 -160, -40 -60, 0 0Z" fill="url(#${g})"/>
+  <path d="M0 -20 C 6 -90, 4 -170, 0 -230" stroke="rgba(0,0,0,.45)" stroke-width="3" fill="none"/>
+  <g fill="rgba(0,0,0,.55)"><circle cx="-8" cy="-70" r="3"/><circle cx="9" cy="-90" r="2.5"/><circle cx="-5" cy="-110" r="2"/><circle cx="7" cy="-60" r="2"/><circle cx="-10" cy="-95" r="2"/></g>`;
+const lily = (theme, style, size, rot) => {
+  const g = theme==='burgundy' ? 'petK' : 'petB';
+  const P = a => `<g transform="rotate(${a})">${petal(g)}</g>`;
+  return `<svg class="flower" style="${style}" width="${size}" height="${size}" viewBox="-280 -280 560 560"><g transform="rotate(${rot-8})">
+    ${P(0)}${P(72)}${P(144)}${P(216)}${P(288)}<g transform="rotate(36) scale(.8)" opacity=".85">${petal(g)}</g></g>
+    <g stroke="#000" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
+    <g fill="#1a0006"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
+    <circle r="14" fill="#000"/></svg>`;
+};
 const sq = style => `<svg class="squiggle" style="${style}" width="200" height="40" viewBox="0 0 200 40"><use href="#sq"/></svg>`;
 const pad = n => String(n).padStart(2,'0');
-const footer = i => `<div class="footer"><span>${pad(i+1)} / ${pad(total)}</span>${i<total-1?'<span class="swipe">geser →</span>':''}</div>`;
+const footer = i => `<div class="footer"><span>${pad(i+1)} / ${pad(total)}</span>${i<total-1?'<span class="swipe">SWIPE →</span>':''}</div>`;
 const icon = {
   save:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>',
   chat:'<svg class="ic" viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>',
   send:'<svg class="ic" viewBox="0 0 24 24"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg>'
 };
 document.getElementById('root').outerHTML = slides.map((s,i)=>{
-  let body='';
-  if(s.type==='cover') body = lily('top:130px;right:70px',480,0)+`<h1>${s.h}</h1><p>${s.p}</p>`;
-  if(s.type==='context') body = lily('top:150px;right:90px',340,25)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
-  if(s.type==='item') body = lily(`top:${170+(i%2)*30}px;right:${80+(i%3)*20}px`,320,i*23)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
-  if(s.type==='cta') body = lily('top:130px;right:70px',400,15)+`<h2>${s.h}</h2>
+  const t = s.theme; let body='';
+  if(s.type==='cover') body = lily(t,'top:110px;right:70px',420,0)+`<h1>${s.h}</h1><div class="bar"></div><p>${s.p}</p>`;
+  if(s.type==='context') body = lily(t,'top:160px;right:90px',340,25)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
+  if(s.type==='item') body = lily(t,`top:${180+(i%2)*30}px;right:${80+(i%3)*20}px`,320,i*23)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
+  if(s.type==='cta') body = lily(t,'top:140px;right:70px',400,15)+`<h2>${s.h}</h2>
     <div class="icons">
       <div>${icon.chat}<span>Hal kecil apa yang bikin harimu oke?</span></div>
       <div>${icon.save}<span>Simpan untuk hari yang berat</span></div>
       <div>${icon.send}<span>Kirim ke teman yang butuh ini</span></div>
     </div>`;
-  return `<section class="slide ${s.type}"><div class="brand">${BRAND}</div><div class="inner">${body}</div>${footer(i)}</section>`;
+  return `<section class="slide ${s.type} t-${t}"><div class="brand">${BRAND}</div><div class="tag">${TAG}</div><div class="inner">${body}</div>${footer(i)}</section>`;
 }).join('');
 </script>
 </body>
