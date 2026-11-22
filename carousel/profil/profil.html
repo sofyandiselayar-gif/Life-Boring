@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Profil Instagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--olive:#5A5A4E;--rust:#8C4A2C;--cream:#F2E8C9;--khaki:#E3C99C;--dark:#2E2A22}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#333;font-family:'Inter',sans-serif;padding:40px;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+  /* tema ilustrasi */
+  .t-olive{--i1:#8C4A2C;--i2:#E3C99C;--i3:#F2E8C9;--ik:#2E2A22;background:var(--olive)}
+  .t-cream{--i1:#8C4A2C;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22;background:var(--cream)}
+  .t-rust{--i1:#F2E8C9;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22;background:var(--rust)}
+  .art .a{fill:var(--i1)} .art .b{fill:var(--i2)} .art .c{fill:var(--i3)} .art .k{fill:var(--ik)}
+  .art .s{fill:none;stroke:var(--ik);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sc{fill:none;stroke:var(--i3);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sa{fill:none;stroke:var(--i1);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ===== Aset ekspor ===== */
+  #avatar{width:1080px;height:1080px;position:relative;overflow:hidden}
+  .hl{width:1080px;height:1920px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:60px}
+  .hl .disc{width:620px;height:620px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .hl .label{font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:90px;letter-spacing:.02em}
+  .t-olive .label,.t-rust .label{color:var(--cream)} .t-cream .label{color:var(--dark)}
+
+  /* ===== Mockup profil ===== */
+  #mock{width:430px;background:#fff;color:#111;border-radius:36px;overflow:hidden;font-size:14px}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 10px}
+  .uname{font-weight:800;font-size:20px;display:flex;align-items:center;gap:6px}
+  .bar svg{width:26px;height:26px;stroke:#111;stroke-width:2;fill:none}
+  .head{display:flex;align-items:center;gap:22px;padding:6px 16px 10px}
+  .ring{width:92px;height:92px;border-radius:50%;padding:3px;background:conic-gradient(var(--rust),var(--khaki),var(--olive),var(--rust));flex:none}
+  .ring>div{width:100%;height:100%;border-radius:50%;border:3px solid #fff;overflow:hidden}
+  .ring img{width:100%;height:100%;display:block}
+  .stats{display:flex;flex:1;justify-content:space-around;text-align:center}
+  .stats b{display:block;font-size:17px;font-weight:700}
+  .stats span{font-size:13px}
+  .bio{padding:0 16px;line-height:1.38}
+  .bio .name{font-weight:700}
+  .bio .cat{color:#737373}
+  .bio .link{color:#00376b;font-weight:600}
+  .btns{display:flex;gap:6px;padding:12px 16px}
+  .btns div{flex:1;background:#efefef;border-radius:8px;text-align:center;padding:8px 0;font-weight:600}
+  .hls{display:flex;gap:14px;padding:6px 16px 14px;overflow:hidden}
+  .hls .h{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;width:66px}
+  .hls .c{width:64px;height:64px;border-radius:50%;border:1px solid #dbdbdb;padding:3px}
+  .hls .c>div{width:100%;height:100%;border-radius:50%;overflow:hidden}
+  .hls .c img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.75);transform-origin:50% 45%}
+  .tabs{display:flex;border-top:1px solid #dbdbdb}
+  .tabs div{flex:1;display:flex;justify-content:center;padding:10px 0}
+  .tabs div.on{border-top:1.5px solid #111;margin-top:-1px}
+  .tabs svg{width:24px;height:24px;stroke:#111;stroke-width:2;fill:none}
+  .tabs div:not(.on) svg{stroke:#8e8e8e}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .grid div{aspect-ratio:3/4;overflow:hidden;background:#eee}
+  .grid img{width:100%;height:100%;object-fit:cover;display:block}
+  .grid .pin{position:relative}
+  .grid .pin::after{content:"📌";position:absolute;top:6px;right:6px;font-size:14px}
+  .grid .ph{display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:13px;letter-spacing:.06em;text-align:center;padding:10px}
+</style>
+</head>
+<body>
+<script src="ill.js"></script>
+
+<!-- FOTO PROFIL: telur ceplok ngantuk pakai plester -->
+<div id="avatar" class="t-olive">
+  <svg class="art" width="1080" height="1080" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="200" style="fill:#5A5A4E"/>
+    <path d="M86 170 C70 96 160 52 226 70 C300 64 348 128 330 190 C356 252 300 326 222 322 C150 346 70 300 78 236 C56 214 64 186 86 170Z" style="fill:#F2E8C9"/>
+    <circle cx="206" cy="196" r="92" style="fill:#E3C99C"/>
+    <circle cx="206" cy="196" r="92" style="fill:none;stroke:#c9a86f;stroke-width:6"/>
+    <path d="M196 106 q-8 -26 10 -36 M210 104 q6 -24 26 -26" style="fill:none;stroke:#2E2A22;stroke-width:6;stroke-linecap:round"/>
+    <!-- mata ngantuk -->
+    <path d="M150 190 h40 M222 190 h40" style="stroke:#2E2A22;stroke-width:8;stroke-linecap:round"/>
+    <path d="M152 190 q18 18 36 0 M224 190 q18 18 36 0" style="fill:#2E2A22"/>
+    <!-- kantung mata -->
+    <path d="M156 214 q14 8 28 0 M228 214 q14 8 28 0" style="fill:none;stroke:#b98f55;stroke-width:4;stroke-linecap:round"/>
+    <circle cx="146" cy="232" r="12" style="fill:#8C4A2C;opacity:.5"/><circle cx="266" cy="232" r="12" style="fill:#8C4A2C;opacity:.5"/>
+    <!-- mulut datar -->
+    <path d="M192 250 q14 -6 28 0" style="fill:none;stroke:#2E2A22;stroke-width:6;stroke-linecap:round"/>
+    <!-- plester -->
+    <g transform="rotate(-30 286 118)">
+      <rect x="250" y="104" width="76" height="28" rx="12" style="fill:#c98d63"/>
+      <rect x="276" y="104" width="24" height="28" style="fill:#b47a52"/>
+      <circle cx="283" cy="114" r="2" style="fill:#8C4A2C"/><circle cx="293" cy="122" r="2" style="fill:#8C4A2C"/>
+    </g>
+    <!-- zzz -->
+    <text x="300" y="300" style="font:900 34px Archivo,sans-serif;font-stretch:125%;fill:#F2E8C9">z</text>
+    <text x="326" y="276" style="font:900 24px Archivo,sans-serif;font-stretch:125%;fill:#F2E8C9">z</text>
+  </svg>
+</div>
+
+<div id="hls"></div>
+
+<!-- MOCKUP -->
+<div id="mock">
+  <div class="bar">
+    <div class="uname">hidupgitugituaja <svg viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div style="display:flex;gap:18px">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </div>
+  </div>
+  <div class="head">
+    <div class="ring"><div><img id="mAv"></div></div>
+    <div class="stats"><div><b>4</b><span>postingan</span></div><div><b>128</b><span>pengikut</span></div><div><b>97</b><span>mengikuti</span></div></div>
+  </div>
+  <div class="bio">
+    <div class="name">Realita Sehari-hari 🍳</div>
+    <div class="cat">Kreator digital</div>
+    <div>Hidup biasa, diceritakan berlebihan.</div>
+    <div>📍 kasur → kantor → kasur</div>
+    <div>⚠️ konten tidak estetik. sudah diperingatkan.</div>
+    <div>🍳 maskot: telur yang belum tidur</div>
+  </div>
+  <div class="btns"><div>Edit profil</div><div>Bagikan profil</div></div>
+  <div class="hls" id="mHls"></div>
+  <div class="tabs">
+    <div class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
+    <div><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M10 9l5 3-5 3z"/></svg></div>
+    <div><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M7 18c1-3 9-3 10 0"/></svg></div>
+  </div>
+  <div class="grid" id="mGrid"></div>
+</div>
+
+<script>
+const HL = [
+  {name:'alarm',     label:'PAGI',     theme:'t-cream'},
+  {name:'noodlecup', label:'MAKAN',    theme:'t-olive'},
+  {name:'piggy',     label:'DUIT',     theme:'t-olive'},
+  {name:'speech',    label:'CURHAT',   theme:'t-olive'},
+  {name:'camera',    label:'NOFILTER', theme:'t-olive'},
+];
+const discBg = {'t-cream':'#F2E8C9','t-olive':'#5A5A4E','t-rust':'#8C4A2C'};
+// warna latar story bergantian
+const storyTheme = ['t-rust','t-cream','t-rust','t-cream','t-rust'];
+document.getElementById('hls').outerHTML = HL.map((h,i)=>`
+  <div class="hl ${storyTheme[i]}" data-hl="${i}">
+    <div class="disc ${h.theme}" style="background:${discBg[h.theme]}">
+      <svg class="art" width="460" height="460" viewBox="0 0 400 400">${ILL[h.name]()}</svg>
+    </div>
+    <div class="label">${h.label}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>
