@@ -6,20 +6,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Palet warna brand */
-  :root{--black:#000000;--burgundy:#6D001A;--white:#FFFFFF}
+  :root{--olive:#5A5A4E;--rust:#8C4A2C;--cream:#F2E8C9;--khaki:#E3C99C;--dark:#2E2A22}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#444;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
   .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
   /* tema per slide */
-  .t-black{background:var(--black);color:var(--white);--accent:var(--burgundy);--sub:rgba(255,255,255,.78)}
-  .t-burgundy{background:var(--burgundy);color:var(--white);--accent:var(--black);--sub:rgba(255,255,255,.82)}
-  .t-white{background:var(--white);color:var(--black);--accent:var(--burgundy);--sub:rgba(0,0,0,.72)}
+  .t-black{background:var(--olive);color:var(--cream);--accent:var(--khaki);--sub:rgba(242,232,201,.82)}
+  .t-burgundy{background:var(--rust);color:var(--cream);--accent:var(--dark);--sub:rgba(242,232,201,.86)}
+  .t-white{background:var(--cream);color:var(--dark);--accent:var(--rust);--sub:rgba(46,42,34,.78)}
   /* kilau satin halus */
-  .t-black::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 85% 10%, rgba(109,0,26,.45), transparent 55%)}
+  .t-black::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.06), transparent 60%),radial-gradient(ellipse at 0% 100%, rgba(0,0,0,.25), transparent 60%)}
   .t-burgundy::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%, rgba(255,255,255,.12), transparent 55%),radial-gradient(ellipse at 10% 100%, rgba(0,0,0,.35), transparent 60%)}
-  .t-white::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 5%, rgba(109,0,26,.06), transparent 50%)}
+  .t-white::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 5%, rgba(140,74,44,.08), transparent 50%)}
   /* butiran tekstur */
-  .slide::after{content:"";position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;
+  .slide::after{content:"";position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
   .inner{position:relative;z-index:2;height:100%}
   .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
@@ -28,20 +28,20 @@
   h1,h2{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-.02em;line-height:1.04}
   h1 em,h2 em{font-style:italic}
   .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
-  .t-black h1 em,.t-black h2 em{color:#b3122f} /* burgundy lebih terang agar terbaca di hitam */
+  .t-black h1 em,.t-black h2 em{color:var(--khaki)} /* burgundy lebih terang agar terbaca di hitam */
   p{font-size:38px;line-height:1.35;font-weight:500;color:var(--sub)}
   p b{color:inherit;font-weight:700}
-  .t-white p b{color:var(--black)} .t-black p b,.t-burgundy p b{color:var(--white)}
+  .t-white p b{color:var(--dark)} .t-black p b,.t-burgundy p b{color:var(--cream)}
   .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:.06em}
   .swipe{display:flex;align-items:center;gap:14px;border:2px solid currentColor;border-radius:40px;padding:12px 26px;font-size:22px;letter-spacing:.1em}
   .cover h1{font-size:116px;position:absolute;left:110px;right:110px;top:560px}
-  .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--burgundy)}
-  .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--white)}
+  .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--khaki)}
+  .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--cream)}
   .context h2{font-size:92px;position:absolute;left:110px;right:110px;top:540px}
   .num{position:absolute;left:110px;top:240px;font-family:'Playfair Display',serif;font-style:italic;font-size:300px;line-height:1;color:var(--accent)}
-  .t-black .num{color:#b3122f}
+  .t-black .num{color:var(--khaki)}
   .rule{position:absolute;left:110px;top:640px;width:120px;height:4px;background:var(--accent)}
-  .t-black .rule{background:#b3122f}
+  .t-black .rule{background:var(--khaki)}
   .item h2{font-size:96px;position:absolute;left:110px;right:110px;top:690px}
   .item p{position:absolute;left:110px;right:150px;top:1030px}
   .cta h2{font-size:108px;position:absolute;left:110px;right:110px;top:560px}
@@ -56,11 +56,11 @@
   <defs>
     <!-- bunga burgundy (untuk latar hitam & putih) -->
     <radialGradient id="petB" cx="50%" cy="85%" r="90%">
-      <stop offset="0" stop-color="#1a0006"/><stop offset=".5" stop-color="#6D001A"/><stop offset="1" stop-color="#a3132f"/>
+      <stop offset="0" stop-color="#3a1d0f"/><stop offset=".5" stop-color="#8C4A2C"/><stop offset="1" stop-color="#b8693f"/>
     </radialGradient>
     <!-- bunga hitam (untuk latar burgundy) -->
     <radialGradient id="petK" cx="50%" cy="85%" r="90%">
-      <stop offset="0" stop-color="#000"/><stop offset=".6" stop-color="#140004"/><stop offset="1" stop-color="#2e0009"/>
+      <stop offset="0" stop-color="#1c1a14"/><stop offset=".6" stop-color="#2E2A22"/><stop offset="1" stop-color="#4a4436"/>
     </radialGradient>
     <path id="sq" d="M0 30 C 40 30, 60 30, 80 22 C 95 5, 120 5, 110 25 C 102 38, 140 30, 200 26" stroke="currentColor" stroke-width="3" fill="none"/>
   </defs>
@@ -90,9 +90,9 @@ const lily = (theme, style, size, rot) => {
   const P = a => `<g transform="rotate(${a})">${petal(g)}</g>`;
   return `<svg class="flower" style="${style}" width="${size}" height="${size}" viewBox="-280 -280 560 560"><g transform="rotate(${rot-8})">
     ${P(0)}${P(72)}${P(144)}${P(216)}${P(288)}<g transform="rotate(36) scale(.8)" opacity=".85">${petal(g)}</g></g>
-    <g stroke="#000" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
-    <g fill="#1a0006"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
-    <circle r="14" fill="#000"/></svg>`;
+    <g stroke="#2E2A22" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
+    <g fill="#2E2A22"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
+    <circle r="14" fill="#2E2A22"/></svg>`;
 };
 const sq = style => `<svg class="squiggle" style="${style}" width="200" height="40" viewBox="0 0 200 40"><use href="#sq"/></svg>`;
 const pad = n => String(n).padStart(2,'0');
