@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hari 3 Carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Palet warna brand */
+  :root{--olive:#5A5A4E;--rust:#8C4A2C;--cream:#F2E8C9;--khaki:#E3C99C;--dark:#2E2A22}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#444;display:flex;flex-direction:column;gap:40px;align-items:center;padding:40px}
+  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Helvetica Neue','Inter',sans-serif}
+  /* tema per slide */
+  .t-black{background:var(--olive);color:var(--cream);--accent:var(--khaki);--sub:rgba(242,232,201,.82)}
+  .t-burgundy{background:var(--rust);color:var(--cream);--accent:var(--dark);--sub:rgba(242,232,201,.86)}
+  .t-white{background:var(--cream);color:var(--dark);--accent:var(--rust);--sub:rgba(46,42,34,.78)}
+  /* kilau satin halus */
+  .t-black::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.06), transparent 60%),radial-gradient(ellipse at 0% 100%, rgba(0,0,0,.25), transparent 60%)}
+  .t-burgundy::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%, rgba(255,255,255,.12), transparent 55%),radial-gradient(ellipse at 10% 100%, rgba(0,0,0,.35), transparent 60%)}
+  .t-white::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 5%, rgba(140,74,44,.08), transparent 50%)}
+  /* butiran tekstur */
+  .slide::after{content:"";position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .inner{position:relative;z-index:2;height:100%}
+  .brand{position:absolute;top:72px;left:110px;z-index:3;font-weight:800;letter-spacing:.16em;font-size:22px}
+  .tag{position:absolute;top:72px;right:110px;z-index:3;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--sub)}
+  .flower{position:absolute;z-index:2;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
+  .art{position:absolute;z-index:2;filter:drop-shadow(0 16px 24px rgba(0,0,0,.22))}
+  .t-black{--i1:#8C4A2C;--i2:#E3C99C;--i3:#F2E8C9;--ik:#2E2A22}
+  .t-white{--i1:#8C4A2C;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .t-burgundy{--i1:#F2E8C9;--i2:#E3C99C;--i3:#5A5A4E;--ik:#2E2A22}
+  .art .a{fill:var(--i1)} .art .b{fill:var(--i2)} .art .c{fill:var(--i3)} .art .k{fill:var(--ik)}
+  .art .s{fill:none;stroke:var(--ik);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sc{fill:none;stroke:var(--i3);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  .art .sa{fill:none;stroke:var(--i1);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+  h1,h2{font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+  h1 em,h2 em{font-style:normal;color:var(--accent)}
+  .t-white h1 em,.t-white h2 em,.t-black h1 em,.t-black h2 em{color:var(--accent)}
+  .t-black h1 em,.t-black h2 em{color:var(--khaki)} /* burgundy lebih terang agar terbaca di hitam */
+  p{font-size:38px;line-height:1.35;font-weight:600;color:var(--sub)}
+  p b{color:inherit;font-weight:700}
+  .t-white p b{color:var(--dark)} .t-black p b,.t-burgundy p b{color:var(--cream)}
+  .footer{position:absolute;bottom:72px;left:110px;right:110px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:.06em}
+  .swipe{display:flex;align-items:center;gap:14px;border:2px solid currentColor;border-radius:40px;padding:12px 26px;font-size:22px;letter-spacing:.1em}
+  .cover h1{font-size:92px;position:absolute;left:110px;right:70px;top:560px}
+  .cover .bar{position:absolute;left:110px;top:980px;width:90px;height:6px;background:var(--khaki)}
+  .cover p{position:absolute;left:110px;right:200px;top:1015px;font-weight:700;color:var(--cream)}
+  .context h2{font-size:70px;position:absolute;left:110px;right:110px;top:540px}
+  .num{position:absolute;left:100px;top:250px;font-family:'Druk Wide','Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:280px;line-height:1;letter-spacing:-.03em;color:var(--accent)}
+  .t-black .num{color:var(--khaki)}
+  .rule{position:absolute;left:110px;top:640px;width:120px;height:4px;background:var(--accent)}
+  .t-black .rule{background:var(--khaki)}
+  .item h2{font-size:70px;position:absolute;left:110px;right:110px;top:690px}
+  .item p{position:absolute;left:110px;right:150px;top:1030px}
+  .cta h2{font-size:76px;position:absolute;left:110px;right:110px;top:530px}
+  .cta .icons{position:absolute;left:110px;right:110px;top:920px;display:flex;flex-direction:column;gap:30px;font-size:34px;font-weight:600}
+  .cta .icons div{display:flex;align-items:center;gap:26px}
+  .cta svg.ic{width:46px;height:46px;stroke:currentColor;stroke-width:2.2;fill:none;flex:none}
+  .squiggle{position:absolute;z-index:2}
+  .t-white .bar{background:var(--rust) !important}
+  .t-white.cover p{color:var(--dark) !important}
+  .t-burgundy .num,.t-burgundy .rule{color:var(--dark)}
+  .t-white.cta p,.t-white.cta{color:var(--dark)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- bunga burgundy (untuk latar hitam & putih) -->
+    <radialGradient id="petB" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#3a1d0f"/><stop offset=".5" stop-color="#8C4A2C"/><stop offset="1" stop-color="#b8693f"/>
+    </radialGradient>
+    <!-- bunga hitam (untuk latar burgundy) -->
+    <radialGradient id="petK" cx="50%" cy="85%" r="90%">
+      <stop offset="0" stop-color="#1c1a14"/><stop offset=".6" stop-color="#2E2A22"/><stop offset="1" stop-color="#4a4436"/>
+    </radialGradient>
+    <path id="sq" d="M0 30 C 40 30, 60 30, 80 22 C 95 5, 120 5, 110 25 C 102 38, 140 30, 200 26" stroke="currentColor" stroke-width="3" fill="none"/>
+  </defs>
+</svg>
+<div id="root"></div>
+<script>
+// === EDIT TEKS DI SINI ===
+const BRAND = 'REALITA SEHARI-HARI';
+const TAG = 'Hari 16';
+const slides = [
+  {"type": "cover", "img": "donut", "h": "Segini pengeluaranku <em>seminggu.</em>", "p": "Jujur, tanpa disensor.", "theme": "black"},
+  {"type": "context", "img": "notepad", "h": "Bukan buat pamer atau <em>menggurui.</em> Cuma mau <em>terbuka.</em>", "theme": "white"},
+  {"type": "item", "img": "nasibungkus", "n": "01", "h": "Makan: <em>Rp350 ribu.</em>", "p": "Masak 4 hari, <b>beli 3 hari.</b>", "theme": "burgundy"},
+  {"type": "item", "img": "helmet", "n": "02", "h": "Transport: <em>Rp150 ribu.</em>", "p": "Ojek kalau telat. <b>Sering telat.</b>", "theme": "black"},
+  {"type": "item", "img": "bubbletea", "n": "03", "h": "Jajan nggak penting: <em>Rp200 ribu.</em>", "p": "Ini yang <b>bikin kaget.</b>", "theme": "burgundy"},
+  {"type": "item", "img": "ticket", "n": "04", "h": "Langganan: <em>Rp60 ribu.</em>", "p": "Musik, film, <b>cloud penuh foto.</b>", "theme": "black"},
+  {"type": "item", "img": "gift", "n": "05", "h": "Tak terduga: <em>Rp120 ribu.</em>", "p": "Kondangan. <b>Selalu kondangan.</b>", "theme": "burgundy"},
+  {"type": "cta", "img": "ledger", "h": "Total Rp880 ribu. <em>Kamu berapa?</em>", "list": [["chat", "Pengeluaran terbesarmu di mana?"], ["save", "Simpan, mulai catat minggu ini"], ["send", "Kirim ke teman yang suka bilang “kok habis?”"]], "theme": "white"},
+];
+// =========================
+const total = slides.length;
+const petal = g => `<path d="M0 0 C 40 -60, 55 -160, 0 -250 C -55 -160, -40 -60, 0 0Z" fill="url(#${g})"/>
+  <path d="M0 -20 C 6 -90, 4 -170, 0 -230" stroke="rgba(0,0,0,.45)" stroke-width="3" fill="none"/>
+  <g fill="rgba(0,0,0,.55)"><circle cx="-8" cy="-70" r="3"/><circle cx="9" cy="-90" r="2.5"/><circle cx="-5" cy="-110" r="2"/><circle cx="7" cy="-60" r="2"/><circle cx="-10" cy="-95" r="2"/></g>`;
+
+const star = (x,y,r,c) => `<path class="${c}" d="M${x} ${y-r} Q${x} ${y} ${x+r} ${y} Q${x} ${y} ${x} ${y+r} Q${x} ${y} ${x-r} ${y} Q${x} ${y} ${x} ${y-r}Z"/>`;
+const egg = (x,y,f) => `<g transform="translate(${x} ${y}) scale(${f?-0.82:0.82} 0.82)">
+    <path class="c" d="M-80 -20 C-90 -80 -10 -110 40 -90 C100 -90 120 -30 100 10 C120 60 70 100 10 90 C-50 110 -100 70 -90 30 C-110 10 -100 -10 -80 -20Z"/>
+    <circle class="b" cx="6" cy="0" r="50"/>
+  </g>`;
+const ILL = {
+  donut: () => { const C=2*Math.PI*110; const seg=[[.40,'#F2E8C9'],[.17,'#E3C99C'],[.23,'#8C4A2C'],[.07,'#2E2A22'],[.13,'#a0a08a']]; let off=0;
+    return seg.map(([f,c])=>{const s=`<circle cx="200" cy="200" r="110" style="fill:none;stroke:${c};stroke-width:56;stroke-dasharray:${f*C-4} ${C};stroke-dashoffset:${-off*C}" transform="rotate(-90 200 200)"/>`; off+=f; return s;}).join('')
+    + `<text x="200" y="196" text-anchor="middle" style="font:900 34px Archivo,sans-serif;font-stretch:125%;fill:#F2E8C9">Rp880</text>
+       <text x="200" y="228" text-anchor="middle" style="font:800 18px Inter,sans-serif;fill:#E3C99C">ribu / minggu</text>` + star(50,60,20,'c') + star(360,350,16,'c'); },
+  notepad: () => `<rect x="70" y="50" width="230" height="310" rx="14" style="fill:#fffaf0;stroke:#2E2A22;stroke-width:5"/>
+    ${Array.from({length:7},(_,i)=>`<circle class="k" cx="${96+i*30}" cy="50" r="9"/>`).join('')}
+    ${['makan','transport','jajan','langganan','lain-lain'].map((t,i)=>`<text x="94" y="${118+i*46}" style="font:700 20px Inter,sans-serif;fill:#2E2A22">${t}</text>
+      <text x="280" y="${118+i*46}" text-anchor="end" style="font:800 20px Inter,sans-serif;fill:#8C4A2C">Rp</text>
+      <path d="M94 ${130+i*46} H280" style="stroke:#5A5A4E;stroke-width:2;opacity:.4"/>`).join('')}
+    <g transform="rotate(35 320 250)"><rect class="a" x="306" y="130" width="28" height="200" rx="6"/><path class="k" d="M306 330 h28 l-14 34z"/><rect class="b" x="306" y="130" width="28" height="24" rx="6"/></g>`,
+  nasibungkus: () => `<ellipse class="a" cx="200" cy="330" rx="170" ry="40"/>
+    <path class="c" d="M70 320 L150 120 L230 320Z"/>
+    <path d="M150 120 L110 320 M150 120 L190 320" style="stroke:#45453a;stroke-width:4"/>
+    <path d="M100 250 H200" style="stroke:#2E2A22;stroke-width:5"/>
+    <path class="c" d="M220 300 Q240 230 300 230 Q360 230 370 300Z" style="fill:#6b6a5c"/>
+    <path d="M240 296 Q250 250 300 250 Q350 250 356 296Z" style="fill:#fffaf0"/>
+    <circle cx="300" cy="266" r="12" style="fill:#E3C99C"/>
+    <text x="330" y="100" text-anchor="middle" style="font:900 48px Archivo,sans-serif;font-stretch:125%;fill:#E3C99C">×3</text>`,
+  helmet: () => `<path class="a" d="M70 250 Q70 90 210 90 Q340 90 340 230 V270 H70Z"/>
+    <path class="k" d="M180 170 H340 V240 H200 Q180 240 180 220Z"/>
+    <path d="M200 182 H330" style="stroke:#F2E8C9;stroke-width:6;opacity:.4"/>
+    <path class="b" d="M120 110 Q150 96 190 94 V270 H150 Q140 180 120 110Z"/>
+    <rect class="k" x="60" y="262" width="290" height="22" rx="10"/>
+    <path d="M110 284 Q120 340 170 340" style="fill:none;stroke:#2E2A22;stroke-width:8"/>
+    <g transform="translate(10 20)"><rect class="c" width="130" height="56" rx="28"/>
+      <text x="65" y="37" text-anchor="middle" style="font:900 24px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">telat!</text></g>`,
+  bubbletea: () => `<rect class="k" x="214" y="10" width="20" height="120" rx="6" transform="rotate(12 224 70)"/>
+    <path class="a" d="M120 100 Q200 40 280 100Z"/>
+    <rect class="k" x="110" y="96" width="180" height="16" rx="8"/>
+    <path d="M118 112 H282 L262 360 H138Z" style="fill:#fffaf0;opacity:.9"/>
+    <path class="b" d="M124 170 H276 L262 360 H138Z"/>
+    ${[[160,330],[190,340],[220,330],[250,336],[175,305],[210,310],[240,300]].map(([x,y])=>`<circle class="k" cx="${x}" cy="${y}" r="12"/>`).join('')}
+    <g transform="translate(290 210) rotate(10)"><rect class="k" width="96" height="44" rx="10"/>
+      <text x="48" y="30" text-anchor="middle" style="font:800 18px Inter,sans-serif;fill:#F2E8C9">Rp25rb</text></g>`,
+  ticket: () => `<g transform="rotate(-10 200 200)"><path class="b" d="M60 130 H340 V180 a20 20 0 0 0 0 40 V270 H60 V220 a20 20 0 0 0 0 -40Z"/>
+      <path d="M260 134 V266" style="stroke:#2E2A22;stroke-width:4;stroke-dasharray:8 8"/>
+      <text x="160" y="214" text-anchor="middle" style="font:900 44px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">FILM</text>
+      <text x="300" y="210" text-anchor="middle" style="font:900 22px Archivo,sans-serif;font-stretch:125%;fill:#8C4A2C">/bln</text></g>
+    <g style="fill:#F2E8C9"><ellipse cx="80" cy="76" rx="18" ry="13" transform="rotate(-20 80 76)"/><rect x="93" y="10" width="7" height="66" rx="3"/><path d="M100 10 q24 6 28 30 q-12 -14 -28 -12z"/></g>
+    <g transform="translate(270 300)"><circle class="c" cx="30" cy="30" r="30"/><circle class="c" cx="70" cy="22" r="38"/><circle class="c" cx="104" cy="34" r="26"/><rect class="c" x="20" y="34" width="100" height="26" rx="13"/>
+      <text x="66" y="50" text-anchor="middle" style="font:900 20px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">99%</text></g>`,
+  gift: () => `<rect class="a" x="80" y="180" width="240" height="180" rx="10"/>
+    <rect class="a" x="64" y="140" width="272" height="56" rx="10" style="fill:#e6dbb9"/>
+    <rect class="b" x="186" y="140" width="28" height="220"/>
+    <path class="b" d="M200 140 C150 70 100 110 140 140Z M200 140 C250 70 300 110 260 140Z"/>
+    <g transform="translate(250 250) rotate(-12)"><rect class="k" width="130" height="50" rx="8"/><circle cx="16" cy="25" r="6" style="fill:#F2E8C9"/>
+      <text x="72" y="32" text-anchor="middle" style="font:800 18px Inter,sans-serif;fill:#F2E8C9">kondangan</text></g>
+    ${star(60,80,20,'b')}${star(350,90,14,'b')}`,
+  ledger: () => `<rect class="a" x="50" y="60" width="300" height="290" rx="14"/>
+    <rect x="68" y="78" width="264" height="254" rx="6" style="fill:#fffaf0"/>
+    ${Array.from({length:5},(_,i)=>`<path d="M90 ${118+i*38} l8 9 l14 -18" style="fill:none;stroke:#8C4A2C;stroke-width:5;stroke-linecap:round;stroke-linejoin:round"/>
+      <rect x="124" y="${108+i*38}" width="${[120,90,140,70,100][i]}" height="10" rx="5" style="fill:#5A5A4E;opacity:.5"/>`).join('')}
+    <path d="M90 300 H310" style="stroke:#2E2A22;stroke-width:4"/>
+    <text x="310" y="326" text-anchor="end" style="font:900 22px Archivo,sans-serif;font-stretch:125%;fill:#2E2A22">Rp880rb</text>
+    ${star(360,50,20,'a')}`,
+};
+const art = (name, style, size) => `<svg class="art" style="${style}" width="${size}" height="${size}" viewBox="0 0 400 400">${ILL[name]()}</svg>`;
+const lily = (theme, style, size, rot) => {
+  const g = theme==='burgundy' ? 'petK' : 'petB';
+  const P = a => `<g transform="rotate(${a})">${petal(g)}</g>`;
+  return `<svg class="flower" style="${style}" width="${size}" height="${size}" viewBox="-280 -280 560 560"><g transform="rotate(${rot-8})">
+    ${P(0)}${P(72)}${P(144)}${P(216)}${P(288)}<g transform="rotate(36) scale(.8)" opacity=".85">${petal(g)}</g></g>
+    <g stroke="#2E2A22" stroke-width="3"><line x1="0" y1="0" x2="-30" y2="-45"/><line x1="0" y1="0" x2="25" y2="-50"/><line x1="0" y1="0" x2="45" y2="-10"/><line x1="0" y1="0" x2="-45" y2="5"/></g>
+    <g fill="#2E2A22"><ellipse cx="-30" cy="-45" rx="9" ry="4"/><ellipse cx="25" cy="-50" rx="9" ry="4"/><ellipse cx="45" cy="-10" rx="9" ry="4"/><ellipse cx="-45" cy="5" rx="9" ry="4"/></g>
+    <circle r="14" fill="#2E2A22"/></svg>`;
+};
+const sq = style => `<svg class="squiggle" style="${style}" width="200" height="40" viewBox="0 0 200 40"><use href="#sq"/></svg>`;
+const pad = n => String(n).padStart(2,'0');
+const footer = i => `<div class="footer"><span>${pad(i+1)} / ${pad(total)}</span>${i<total-1?'<span class="swipe">SWIPE →</span>':''}</div>`;
+const icon = {
+  save:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>',
+  chat:'<svg class="ic" viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>',
+  send:'<svg class="ic" viewBox="0 0 24 24"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg>'
+};
+document.getElementById('root').outerHTML = slides.map((s,i)=>{
+  const t = s.theme; let body='';
+  if(s.type==='cover') body = art(s.img,'top:120px;right:80px',400)+`<h1>${s.h}</h1><div class="bar"></div><p>${s.p}</p>`;
+  if(s.type==='context') body = art(s.img,'top:130px;right:90px',360)+`<h2>${s.h}</h2>`+sq('top:1070px;left:110px');
+  if(s.type==='item') body = art(s.img,'top:150px;right:80px',360)+`<div class="num">${s.n}</div><div class="rule"></div><h2>${s.h}</h2><p>${s.p}</p>`;
+  if(s.type==='cta') body = art(s.img,'top:110px;right:80px',400)+`<h2>${s.h}</h2>
+    <div class="icons">${s.list.map(([k,t])=>`<div>${icon[k]}<span>${t}</span></div>`).join('')}</div>`;
+  return `<section class="slide ${s.type} t-${t}"><div class="brand">${BRAND}</div><div class="tag">${TAG}</div><div class="inner">${body}</div>${footer(i)}</section>`;
+}).join('');
+</script>
+<script>
+document.fonts.ready.then(()=>{document.querySelectorAll('section.slide h1, section.slide h2').forEach(h=>{
+  let fs=parseFloat(getComputedStyle(h).fontSize); while(h.scrollWidth>h.clientWidth+1 && fs>40){fs-=2;h.style.fontSize=fs+'px';}});});
+</script>
+</body>
+</html>
